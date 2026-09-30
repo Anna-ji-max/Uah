@@ -1,0 +1,73 @@
+The visible decoded source includes:
+
+FocusService.kt:
+- Accessibility service for detecting Instagram UI elements.
+- Detects "Follow", "Message", "Following", and "Unfollow".
+- Detects profile headers.
+- Blocks/overlays profile content.
+- Creates an Instagram-style home feed blocker.
+- Redirects/open DMs using the Instagram URI:
+  instagram://direct-inbox
+- Falls back to launching the Instagram package:
+  com.instagram.android
+- Contains a full-screen blocker for Reels and Explore.
+- Displays motivational quotes.
+- Blocks downward swipe gestures from exiting Stories.
+- Adds navigation caps over Reels/Explore icons.
+- Uses Android accessibility window-state changes.
+
+accessibility_config.xml:
+- accessibilityEventTypes="typeWindowStateChanged"
+- accessibilityFeedbackType="feedbackGeneric"
+- accessibilityFlags="flagDefault"
+- canRetrieveWindowContent="true"
+- notificationTimeout="50"
+- description="@string/accessibility_description"
+
+strings.xml:
+app_name = IG Focus
+
+service_label = IG Focus Overlay
+
+accessibility_description =
+Makes Instagram work like WhatsApp — full access to DMs and stories, but the feed, Reels, Explore, and other profiles' content are hidden to prevent mindless scrolling.
+
+themes.xml:
+AppTheme
+parent = Theme.AppCompat.DayNight.NoActionBar
+
+colorPrimary = #000000
+colorAccent = #0095F6
+
+activity_main.xml:
+- Black background
+- IG Focus title
+- Instagram as a messaging app.
+  See DMs + Stories. Nothing else.
+- Service not enabled
+- Button: Open Accessibility Settings
+- Feature description including:
+  DMs / Messages — fully open
+  Stories — swipe horizontally freely
+  Your own profile
+  Post, reply, react
+  Home feed — redirects you to DMs
+  Reels tab — motivational quote
+  Explore tab — motivational quote
+  Other profiles — content hidden
+  Story exit (down swipe) — blocked
+  Profile scroll — blocked
+
+card_bg.xml:
+- Rectangle
+- Background color: #1A1A1A
+- Corner radius: 10dp
+
+GitHub Actions:
+Build APK
+  run: gradle :app:assembleDebug
+
+Upload artifact:
+  name: ig-focus-v3
+  path: app/build/outputs/apk/debug/app-debug.apk
+  retention-days: 30
